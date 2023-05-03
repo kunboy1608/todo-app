@@ -4,7 +4,7 @@ services:
   gateway-app:
     image: gateway
     environment:
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - _JAVA_OPTIONS=-Xmx256m -Xms256m
       - SPRING_PROFILES_ACTIVE=prod,api-docs
       - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
       - EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka
@@ -40,7 +40,7 @@ services:
     # See https://www.jhipster.tech/jhipster-registry/#spring-cloud-config
     environment:
       - JHIPSTER_SLEEP=20
-      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - _JAVA_OPTIONS=-Xmx256m -Xms256m
       - SPRING_PROFILES_ACTIVE=dev,api-docs
       - SPRING_SECURITY_USER_PASSWORD=admin
       - JHIPSTER_REGISTRY_PASSWORD=admin
