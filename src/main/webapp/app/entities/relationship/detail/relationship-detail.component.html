@@ -1,0 +1,56 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="relationship">
+      <h2 data-cy="relationshipDetailsHeading"><span jhiTranslate="gatewayApp.relationship.detail.title">Relationship</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.relationship.relationshipId">Relationship Id</span></dt>
+        <dd>
+          <span>{{ relationship.relationshipId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.owner">Owner</span></dt>
+        <dd>
+          <span>{{ relationship.owner }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.partner">Partner</span></dt>
+        <dd>
+          <span>{{ relationship.partner }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.status">Status</span></dt>
+        <dd>
+          <span>{{ relationship.status }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.createdBy">Created By</span></dt>
+        <dd>
+          <span>{{ relationship.createdBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.createdOn">Created On</span></dt>
+        <dd>
+          <span>{{ relationship.createdOn | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.modifiedBy">Modified By</span></dt>
+        <dd>
+          <span>{{ relationship.modifiedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.relationship.modifiedOn">Modified On</span></dt>
+        <dd>
+          <span>{{ relationship.modifiedOn | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/relationship', relationship.relationshipId, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

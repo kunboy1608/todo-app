@@ -1,0 +1,148 @@
+<div>
+  <h2 id="page-heading" data-cy="RelationshipHeading">
+    <span jhiTranslate="gatewayApp.relationship.home.title">Relationships</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gatewayApp.relationship.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-relationship"
+        [routerLink]="['/relationship/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gatewayApp.relationship.home.createLabel"> Create a new Relationship </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="relationships?.length === 0">
+    <span jhiTranslate="gatewayApp.relationship.home.notFound">No Relationships found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="relationships && relationships.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="relationshipId">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.relationshipId">Relationship Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="owner">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.owner">Owner</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="partner">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.partner">Partner</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.status">Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdBy">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.createdBy">Created By</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdOn">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.createdOn">Created On</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modifiedBy">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.modifiedBy">Modified By</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modifiedOn">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.relationship.modifiedOn">Modified On</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let relationship of relationships; trackBy: trackRelationshipId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/relationship', relationship.relationshipId, 'view']">{{ relationship.relationshipId }}</a>
+          </td>
+          <td>{{ relationship.owner }}</td>
+          <td>{{ relationship.partner }}</td>
+          <td>{{ relationship.status }}</td>
+          <td>{{ relationship.createdBy }}</td>
+          <td>{{ relationship.createdOn | formatMediumDatetime }}</td>
+          <td>{{ relationship.modifiedBy }}</td>
+          <td>{{ relationship.modifiedOn | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/relationship', relationship.relationshipId, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/relationship', relationship.relationshipId, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(relationship)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="relationships && relationships.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

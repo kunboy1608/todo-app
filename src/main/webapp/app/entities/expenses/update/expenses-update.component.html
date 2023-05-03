@@ -1,0 +1,151 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-expenses-heading" data-cy="ExpensesCreateUpdateHeading" jhiTranslate="gatewayApp.expenses.home.createOrEditLabel">
+        Create or edit a Expenses
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.expenseId.value !== null">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.expenseId" for="field_expenseId">Expense Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="expenseId"
+            id="field_expenseId"
+            data-cy="expenseId"
+            formControlName="expenseId"
+            [readonly]="true"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.owner" for="field_owner">Owner</label>
+          <input type="number" class="form-control" name="owner" id="field_owner" data-cy="owner" formControlName="owner" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.content" for="field_content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.cost" for="field_cost">Cost</label>
+          <input type="number" class="form-control" name="cost" id="field_cost" data-cy="cost" formControlName="cost" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.tag" for="field_tag">Tag</label>
+          <input type="text" class="form-control" name="tag" id="field_tag" data-cy="tag" formControlName="tag" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.day" for="field_day">Day</label>
+          <div class="input-group">
+            <input
+              id="field_day"
+              data-cy="day"
+              type="text"
+              class="form-control"
+              name="day"
+              ngbDatepicker
+              #dayDp="ngbDatepicker"
+              formControlName="day"
+            />
+            <button type="button" class="btn btn-secondary" (click)="dayDp.toggle()"><fa-icon icon="calendar-alt"></fa-icon></button>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.createdBy" for="field_createdBy">Created By</label>
+          <input type="text" class="form-control" name="createdBy" id="field_createdBy" data-cy="createdBy" formControlName="createdBy" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.createdOn" for="field_createdOn">Created On</label>
+          <div class="d-flex">
+            <input
+              id="field_createdOn"
+              data-cy="createdOn"
+              type="datetime-local"
+              class="form-control"
+              name="createdOn"
+              formControlName="createdOn"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.modifiedBy" for="field_modifiedBy">Modified By</label>
+          <input
+            type="text"
+            class="form-control"
+            name="modifiedBy"
+            id="field_modifiedBy"
+            data-cy="modifiedBy"
+            formControlName="modifiedBy"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.modifiedOn" for="field_modifiedOn">Modified On</label>
+          <div class="d-flex">
+            <input
+              id="field_modifiedOn"
+              data-cy="modifiedOn"
+              type="datetime-local"
+              class="form-control"
+              name="modifiedOn"
+              formControlName="modifiedOn"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.types" for="field_types">Types</label>
+          <select class="form-control" id="field_types" data-cy="types" name="types" formControlName="types" [compareWith]="compareTypes">
+            <option [ngValue]="null"></option>
+            <option [ngValue]="typesOption" *ngFor="let typesOption of typesSharedCollection">{{ typesOption.typeId }}</option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.expenses.profiles" for="field_profiles">Profiles</label>
+          <select
+            class="form-control"
+            id="field_profiles"
+            data-cy="profiles"
+            name="profiles"
+            formControlName="profiles"
+            [compareWith]="compareProfiles"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="profilesOption" *ngFor="let profilesOption of profilesSharedCollection">
+              {{ profilesOption.profileId }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

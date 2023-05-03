@@ -1,0 +1,69 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-notes-heading" data-cy="NotesCreateUpdateHeading" jhiTranslate="gatewayApp.notes.home.createOrEditLabel">
+        Create or edit a Notes
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.noteId.value !== null">
+          <label class="form-label" jhiTranslate="gatewayApp.notes.noteId" for="field_noteId">Note Id</label>
+          <input
+            type="number"
+            class="form-control"
+            name="noteId"
+            id="field_noteId"
+            data-cy="noteId"
+            formControlName="noteId"
+            [readonly]="true"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.notes.owner" for="field_owner">Owner</label>
+          <input type="number" class="form-control" name="owner" id="field_owner" data-cy="owner" formControlName="owner" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.notes.content" for="field_content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="gatewayApp.notes.profiles" for="field_profiles">Profiles</label>
+          <select
+            class="form-control"
+            id="field_profiles"
+            data-cy="profiles"
+            name="profiles"
+            formControlName="profiles"
+            [compareWith]="compareProfiles"
+          >
+            <option [ngValue]="null"></option>
+            <option [ngValue]="profilesOption" *ngFor="let profilesOption of profilesSharedCollection">
+              {{ profilesOption.profileId }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

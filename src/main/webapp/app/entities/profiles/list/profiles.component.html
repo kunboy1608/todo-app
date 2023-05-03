@@ -1,0 +1,155 @@
+<div>
+  <h2 id="page-heading" data-cy="ProfilesHeading">
+    <span jhiTranslate="gatewayApp.profiles.home.title">Profiles</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="gatewayApp.profiles.home.refreshListLabel">Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-profiles"
+        [routerLink]="['/profiles/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="gatewayApp.profiles.home.createLabel"> Create a new Profiles </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="profiles?.length === 0">
+    <span jhiTranslate="gatewayApp.profiles.home.notFound">No Profiles found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="profiles && profiles.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="profileId">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.profileId">Profile Id</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="username">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.username">Username</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="nickname">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.nickname">Nickname</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="birthday">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.birthday">Birthday</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="bio">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.bio">Bio</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdBy">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.createdBy">Created By</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="createdOn">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.createdOn">Created On</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modifiedBy">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.modifiedBy">Modified By</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="modifiedOn">
+            <div class="d-flex">
+              <span jhiTranslate="gatewayApp.profiles.modifiedOn">Modified On</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let profiles of profiles; trackBy: trackProfileId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/profiles', profiles.profileId, 'view']">{{ profiles.profileId }}</a>
+          </td>
+          <td>{{ profiles.username }}</td>
+          <td>{{ profiles.nickname }}</td>
+          <td>{{ profiles.birthday | formatMediumDate }}</td>
+          <td>{{ profiles.bio }}</td>
+          <td>{{ profiles.createdBy }}</td>
+          <td>{{ profiles.createdOn | formatMediumDatetime }}</td>
+          <td>{{ profiles.modifiedBy }}</td>
+          <td>{{ profiles.modifiedOn | formatMediumDatetime }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/profiles', profiles.profileId, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/profiles', profiles.profileId, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(profiles)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="profiles && profiles.length > 0">
+    <div class="d-flex justify-content-center">
+      <jhi-item-count [params]="{ page: page, totalItems: totalItems, itemsPerPage: itemsPerPage }"></jhi-item-count>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <ngb-pagination
+        [collectionSize]="totalItems"
+        [page]="page"
+        [pageSize]="itemsPerPage"
+        [maxSize]="5"
+        [rotate]="true"
+        [boundaryLinks]="true"
+        (pageChange)="navigateToPage($event)"
+      ></ngb-pagination>
+    </div>
+  </div>
+</div>

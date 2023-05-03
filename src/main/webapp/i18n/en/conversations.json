@@ -1,0 +1,28 @@
+{
+  "gatewayApp": {
+    "conversations": {
+      "home": {
+        "title": "Conversations",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Conversations",
+        "createOrEditLabel": "Create or edit a Conversations",
+        "notFound": "No Conversations found"
+      },
+      "created": "A new Conversations is created with identifier {{ param }}",
+      "updated": "A Conversations is updated with identifier {{ param }}",
+      "deleted": "A Conversations is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Conversations {{ id }}?"
+      },
+      "detail": {
+        "title": "Conversations"
+      },
+      "conversationId": "Conversation Id",
+      "timestamp": "Timestamp",
+      "sender": "Sender",
+      "receiver": "Receiver",
+      "message": "Message",
+      "conversationsDetails": "Conversations Details"
+    }
+  }
+}

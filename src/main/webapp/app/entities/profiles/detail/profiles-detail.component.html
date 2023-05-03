@@ -1,0 +1,60 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="profiles">
+      <h2 data-cy="profilesDetailsHeading"><span jhiTranslate="gatewayApp.profiles.detail.title">Profiles</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.profiles.profileId">Profile Id</span></dt>
+        <dd>
+          <span>{{ profiles.profileId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.username">Username</span></dt>
+        <dd>
+          <span>{{ profiles.username }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.nickname">Nickname</span></dt>
+        <dd>
+          <span>{{ profiles.nickname }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.birthday">Birthday</span></dt>
+        <dd>
+          <span>{{ profiles.birthday | formatMediumDate }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.bio">Bio</span></dt>
+        <dd>
+          <span>{{ profiles.bio }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.createdBy">Created By</span></dt>
+        <dd>
+          <span>{{ profiles.createdBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.createdOn">Created On</span></dt>
+        <dd>
+          <span>{{ profiles.createdOn | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.modifiedBy">Modified By</span></dt>
+        <dd>
+          <span>{{ profiles.modifiedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.profiles.modifiedOn">Modified On</span></dt>
+        <dd>
+          <span>{{ profiles.modifiedOn | formatMediumDatetime }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/profiles', profiles.profileId, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

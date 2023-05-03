@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="types">
+      <h2 data-cy="typesDetailsHeading"><span jhiTranslate="gatewayApp.types.detail.title">Types</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.types.typeId">Type Id</span></dt>
+        <dd>
+          <span>{{ types.typeId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.name">Name</span></dt>
+        <dd>
+          <span>{{ types.name }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.owner">Owner</span></dt>
+        <dd>
+          <span>{{ types.owner }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.createdBy">Created By</span></dt>
+        <dd>
+          <span>{{ types.createdBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.createdOn">Created On</span></dt>
+        <dd>
+          <span>{{ types.createdOn | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.modifiedBy">Modified By</span></dt>
+        <dd>
+          <span>{{ types.modifiedBy }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.modifiedOn">Modified On</span></dt>
+        <dd>
+          <span>{{ types.modifiedOn | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.types.profiles">Profiles</span></dt>
+        <dd>
+          <div *ngIf="types.profiles">
+            <a [routerLink]="['/profiles', types.profiles.profileId, 'view']">{{ types.profiles.profileId }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/types', types.typeId, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

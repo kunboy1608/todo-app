@@ -1,0 +1,44 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="conversations">
+      <h2 data-cy="conversationsDetailsHeading"><span jhiTranslate="gatewayApp.conversations.detail.title">Conversations</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="gatewayApp.conversations.conversationId">Conversation Id</span></dt>
+        <dd>
+          <span>{{ conversations.conversationId }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.conversations.timestamp">Timestamp</span></dt>
+        <dd>
+          <span>{{ conversations.timestamp | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.conversations.sender">Sender</span></dt>
+        <dd>
+          <span>{{ conversations.sender }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.conversations.receiver">Receiver</span></dt>
+        <dd>
+          <span>{{ conversations.receiver }}</span>
+        </dd>
+        <dt><span jhiTranslate="gatewayApp.conversations.message">Message</span></dt>
+        <dd>
+          <span>{{ conversations.message }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/conversations', conversations.conversationId, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

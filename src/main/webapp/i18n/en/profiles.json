@@ -1,0 +1,36 @@
+{
+  "gatewayApp": {
+    "profiles": {
+      "home": {
+        "title": "Profiles",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Profiles",
+        "createOrEditLabel": "Create or edit a Profiles",
+        "notFound": "No Profiles found"
+      },
+      "created": "A new Profiles is created with identifier {{ param }}",
+      "updated": "A Profiles is updated with identifier {{ param }}",
+      "deleted": "A Profiles is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Profiles {{ id }}?"
+      },
+      "detail": {
+        "title": "Profiles"
+      },
+      "profileId": "Profile Id",
+      "username": "Username",
+      "nickname": "Nickname",
+      "birthday": "Birthday",
+      "bio": "Bio",
+      "createdBy": "Created By",
+      "createdOn": "Created On",
+      "modifiedBy": "Modified By",
+      "modifiedOn": "Modified On",
+      "types": "Types",
+      "expenses": "Expenses",
+      "notes": "Notes",
+      "events": "Events",
+      "tags": "Tags"
+    }
+  }
+}

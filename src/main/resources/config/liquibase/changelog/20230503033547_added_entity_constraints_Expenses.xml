@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <!--
+        Added the constraints for entity Expenses.
+    -->
+    <changeSet id="20230503033547-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="types_type_id"
+                                 baseTableName="expenses"
+                                 constraintName="fk_expenses__types_id"
+                                 referencedColumnNames="type_id"
+                                 referencedTableName="types"/>
+
+        <addForeignKeyConstraint baseColumnNames="profiles_profile_id"
+                                 baseTableName="expenses"
+                                 constraintName="fk_expenses__profiles_id"
+                                 referencedColumnNames="profile_id"
+                                 referencedTableName="profiles"/>
+    </changeSet>
+</databaseChangeLog>
