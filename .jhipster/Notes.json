@@ -1,0 +1,39 @@
+{
+  "applications": ["gateway", "expenseHeoDat"],
+  "changelogDate": "20230503033647",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "notes",
+  "fields": [
+    {
+      "fieldName": "noteId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "owner",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Notes",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "profiles",
+      "otherEntityRelationshipName": "notes",
+      "relationshipName": "profiles",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

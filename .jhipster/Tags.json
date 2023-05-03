@@ -1,0 +1,39 @@
+{
+  "applications": ["gateway", "expenseHeoDat"],
+  "changelogDate": "20230503033947",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "tags",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "owner",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Tags",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "profiles",
+      "otherEntityRelationshipName": "tags",
+      "relationshipName": "profiles",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

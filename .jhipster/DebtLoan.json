@@ -1,0 +1,57 @@
+{
+  "applications": ["gateway", "expenseHeoDat"],
+  "changelogDate": "20230503033347",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "debt_loan",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "loanUserId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "debtUserId",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "cost",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "deadline",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "datOfPayment",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "DebtLoan",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "profiles",
+      "ownerSide": true,
+      "relationshipName": "debts",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "profiles",
+      "ownerSide": true,
+      "relationshipName": "loans",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

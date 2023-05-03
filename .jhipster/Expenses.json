@@ -1,0 +1,73 @@
+{
+  "applications": ["gateway", "expenseHeoDat"],
+  "changelogDate": "20230503033547",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "expenses",
+  "fields": [
+    {
+      "fieldName": "expenseId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "owner",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "content",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "cost",
+      "fieldType": "Double"
+    },
+    {
+      "fieldName": "tag",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "day",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "createdBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdOn",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "modifiedBy",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "modifiedOn",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Expenses",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "types",
+      "otherEntityRelationshipName": "expenses",
+      "relationshipName": "types",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "profiles",
+      "otherEntityRelationshipName": "expenses",
+      "relationshipName": "profiles",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}

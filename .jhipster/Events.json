@@ -1,0 +1,47 @@
+{
+  "applications": ["gateway", "expenseHeoDat"],
+  "changelogDate": "20230503033447",
+  "databaseType": "sql",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "events",
+  "fields": [
+    {
+      "fieldName": "eventId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "owner",
+      "fieldType": "Long"
+    },
+    {
+      "fieldName": "kind",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "date",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "isLunar",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Events",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "profiles",
+      "otherEntityRelationshipName": "events",
+      "relationshipName": "profiles",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceClass"
+}
