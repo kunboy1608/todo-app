@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import com.hoangdp.todo.dto.request.SignInRequest;
 import com.hoangdp.todo.dto.request.SignUpRequest;
 import com.hoangdp.todo.dto.response.JwtAuthenticationResponse;
-import com.hoangdp.todo.entity.Role;
 import com.hoangdp.todo.entity.User;
 import com.hoangdp.todo.enums.RoleEnum;
 import com.hoangdp.todo.repository.RoleRepository;

@@ -17,7 +17,8 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {    
-    private final String jwSigningKey = "xitC0ritK1D3vxitC0ritK1D3vxitC0ritK1D3vxitC0ritK1D3v";
+    private final String JWT_SECRET_KEY = "xitC0ritK1D3vxitC0ritK1D3vxitC0ritK1D3vxitC0ritK1D3v";
+    private final Long EXPIRY_PERIOD = 600000L;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -42,14 +43,14 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(jwSigningKey);
+        byte[] keyBytes = Decoders.BASE64.decode(JWT_SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
     private String generateToken(Map<String, Object> extraClaims, UserDetails user) {
         return Jwts.builder().setClaims(extraClaims).setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 100 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + EXPIRY_PERIOD))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
     }
 
