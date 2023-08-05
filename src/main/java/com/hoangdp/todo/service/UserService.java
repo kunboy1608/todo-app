@@ -18,7 +18,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findUserByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Invaild user"));
+        return userRepository.findOneByUsernameIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException("Invaild user"));
     }
 
     public User loadUserById(Long userId) {

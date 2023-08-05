@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.hoangdp.todo.entity.User;
 
-public interface UserRepository extends JpaRepository<User, Long>{
-    Optional<User> findUserByUsername(String username);
+public interface UserRepository extends JpaRepository<User, Long> {
+    Optional<User> findOneByUsernameIgnoreCase(String username);
 }
