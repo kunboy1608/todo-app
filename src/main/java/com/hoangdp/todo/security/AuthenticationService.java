@@ -52,7 +52,7 @@ public class AuthenticationService {
 
     public JwtAuthenticationResponse signIn(SignInRequest signInRequest){
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(signInRequest.getUsername(), signInRequest.getPassword()));
-        User user = userRepository.findUserByUsername(signInRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid user"));        
+        User user = userRepository.findOneByUsernameIgnoreCase(signInRequest.getUsername()).orElseThrow(() -> new IllegalArgumentException("Invalid user"));        
         return new JwtAuthenticationResponse(jwtService.generateToken(user));
     }
 }

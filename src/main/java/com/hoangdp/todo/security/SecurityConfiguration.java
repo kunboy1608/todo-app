@@ -33,15 +33,15 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                    .requestMatchers("/api/v1/auth/**")                
+                        .requestMatchers("/api/v1/auth/**")
                         .permitAll()
-                    .requestMatchers("/api/v1/admin/**")                  
+                        .requestMatchers("/api/v1/admin/**")
                         .hasRole(RoleEnum.ADMIN.name())
-                    .anyRequest()
+                        .anyRequest()
                         .authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);                
+                .addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
