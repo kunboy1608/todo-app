@@ -2,6 +2,7 @@ package com.hoangdp.todo.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hoangdp.todo.enums.RoleEnum;
 
 import jakarta.annotation.Nonnull;
@@ -10,7 +11,6 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
@@ -31,13 +31,14 @@ import lombok.NoArgsConstructor;
 public class Role {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Long id;
 
     @Nonnull
     @Enumerated(EnumType.STRING)
     private RoleEnum name;
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "roles")    
     Set<User> users;
 }

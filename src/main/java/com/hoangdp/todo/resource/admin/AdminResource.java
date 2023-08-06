@@ -1,4 +1,4 @@
-package com.hoangdp.todo.resource;
+package com.hoangdp.todo.resource.admin;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +11,6 @@ public class AdminResource {
 
     @GetMapping("/hello")    
     public ResponseEntity<String> sayHello(){
-        return ResponseEntity.ok("Ok");
+        return ResponseEntity.ok("Hello, Admin comes back home");
     }
 }

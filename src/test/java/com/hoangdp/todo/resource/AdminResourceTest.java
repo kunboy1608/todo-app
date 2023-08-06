@@ -8,6 +8,8 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import com.hoangdp.todo.resource.admin.AdminResource;
+
 public class AdminResourceTest {
     @WithMockUser(authorities = "ADMIN")
     @Test

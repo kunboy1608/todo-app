@@ -1,6 +1,5 @@
 package com.hoangdp.todo.config;
 
-import java.time.Instant;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.hoangdp.todo.entity.Role;
-import com.hoangdp.todo.entity.ToDo;
 import com.hoangdp.todo.entity.User;
 import com.hoangdp.todo.enums.RoleEnum;
 import com.hoangdp.todo.repository.RoleRepository;
-import com.hoangdp.todo.repository.ToDoRepository;
 import com.hoangdp.todo.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
@@ -31,9 +28,6 @@ public class DatasetInitializer {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private ToDoRepository toDoRepository;
 
     @Bean
     @Transactional
@@ -64,12 +58,7 @@ public class DatasetInitializer {
                             add(Role.builder().id(2L).name(RoleEnum.USER).build());
                         }
                     })
-                    .build());
-
-            toDoRepository.save(ToDo.builder().content("ToDo 1").deadline(Instant.now()).build());
-            toDoRepository.save(ToDo.builder().content("ToDo 2").deadline(null).build());
-            toDoRepository.save(ToDo.builder().content("ToDo 3").deadline(Instant.now()).build());
-            toDoRepository.save(ToDo.builder().content("ToDo 4").deadline(null).build());                                   
+                    .build());                              
         };
 
     }
