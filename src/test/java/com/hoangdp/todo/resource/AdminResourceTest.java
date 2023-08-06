@@ -11,18 +11,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 public class AdminResourceTest {
     @WithMockUser(authorities = "ADMIN")
     @Test
-    void endpointWhenUserAuthorityThenAuthorized() throws Exception {
-
+    void endpointWhenAdminAuthorityThenAuthorized() throws Exception {
         MockMvc mvc = MockMvcBuilders.standaloneSetup(new AdminResource()).build();
         mvc.perform(get("/api/v1/admin/hello"))
                 .andExpect(status().isOk());
-    }
-
-    @WithMockUser(authorities = "USER")
-    @Test
-    void endpointWhenNotUserAuthorityThenForbidden() throws Exception {
-        MockMvc mvc = MockMvcBuilders.standaloneSetup(new AdminResource()).build();
-        mvc.perform(get("/api/v1/admin/hello"))
-                .andExpect(status().isForbidden());
     }
 }

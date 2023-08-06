@@ -51,7 +51,7 @@ public class ToDoResource {
         if (toDo.getId() != null) {
             throw new ErrorResponseException(HttpStatusCode.valueOf(404));
         }
-        return ResponseEntity.ok(toDoService.create(toDo));
+        return ResponseEntity.status(201).body(toDoService.create(toDo));
     }
 
     @PutMapping("/todos/{toDoId}")
@@ -64,19 +64,22 @@ public class ToDoResource {
     }
 
     @PatchMapping("/todos/{toDoId}")
-    public ResponseEntity<ToDo> partialUpdate(@PathVariable Long toDoId,  @RequestBody Map<String, Object> updates) {
+    public ResponseEntity<ToDo> partialUpdate(@PathVariable Long toDoId, @RequestBody Map<String, Object> updates) {
         log.debug("REST request to partial update To do {}", toDoId);
-        if (updates.containsKey("id") && toDoId.equals(Long.valueOf(updates.get("id").toString()))){
+        if (updates.containsKey("id") && toDoId.equals(Long.valueOf(updates.get("id").toString()))) {
             return ResponseEntity.ofNullable(toDoService.partialUpdate(updates));
         }
         return ResponseEntity.ofNullable(null);
     }
 
     @DeleteMapping("/todos/{toDoId}")
-    public ResponseEntity<String> deleteById(@PathVariable Long toDoId) {
+    public ResponseEntity<Void> deleteById(@PathVariable Long toDoId) {
         log.debug("REST request to delete To do {}", toDoId);
         toDoService.deleteById(toDoId);
-        return ResponseEntity.ok("Deleted TodoId: " + toDoId);
+        if (toDoService.existsById(toDoId)) {
+            return ResponseEntity.status(403).build();
+        }
+        return ResponseEntity.ok().build();
     }
 
 }

@@ -69,7 +69,7 @@ public class DatasetInitializer {
             toDoRepository.save(ToDo.builder().content("ToDo 1").deadline(Instant.now()).build());
             toDoRepository.save(ToDo.builder().content("ToDo 2").deadline(null).build());
             toDoRepository.save(ToDo.builder().content("ToDo 3").deadline(Instant.now()).build());
-            toDoRepository.save(ToDo.builder().content("ToDo 4").deadline(null).build());            
+            toDoRepository.save(ToDo.builder().content("ToDo 4").deadline(null).build());                                   
         };
 
     }

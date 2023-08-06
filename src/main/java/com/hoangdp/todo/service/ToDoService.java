@@ -6,8 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import com.hoangdp.todo.entity.ToDo;
@@ -20,14 +18,17 @@ public class ToDoService {
     @Autowired
     ToDoRepository toDoRepository;
 
+    @Autowired
+    UserService userService;
+
     public ToDo create(ToDo toDo) {
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        final User u = (User) auth.getPrincipal();
+        final User u = userService.getCurrentUser();
 
         toDo.setCreatedOn(Instant.now());
         toDo.setCreatedBy(u.getId());
         toDo.setLastModifiedOn(Instant.now());
         toDo.setLastModifiedBy(u.getId());
+        toDo.setUser(u);
 
         return toDoRepository.save(toDo);
     }
@@ -38,8 +39,7 @@ public class ToDoService {
             return null;
         }
 
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        final User u = (User) auth.getPrincipal();
+        final User u = userService.getCurrentUser();
 
         toDo.setCreatedOn(t.getCreatedOn());
         toDo.setCreatedBy(t.getCreatedBy());
@@ -64,8 +64,7 @@ public class ToDoService {
                             : TimeUtils.instantFromString(updates.get("deadline").toString()));
         }
 
-        final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        final User u = (User) auth.getPrincipal();
+        final User u = userService.getCurrentUser();
 
         t.setLastModifiedOn(Instant.now());
         t.setLastModifiedBy(u.getId());
@@ -74,14 +73,18 @@ public class ToDoService {
     }
 
     public Page<ToDo> findAll(Pageable pageable) {
-        return toDoRepository.findAll(pageable);
+        return toDoRepository.findAllByUser(userService.getCurrentUser(), pageable);
     }
 
     public ToDo findById(Long id) {
-        return toDoRepository.findById(id).orElse(null);
+        return toDoRepository.findByIdAndUser(id, userService.getCurrentUser()).orElse(null);
     }
 
     public void deleteById(Long id) {
-        toDoRepository.deleteById(id);
+        toDoRepository.deleteByIdAndUser(id, userService.getCurrentUser());
+    }
+
+    public boolean existsById(Long id){
+        return toDoRepository.existsById(id);
     }
 }
