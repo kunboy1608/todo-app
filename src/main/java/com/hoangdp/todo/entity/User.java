@@ -9,6 +9,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -24,6 +26,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.Singular;
 
 @Table(name = "users")
 @Entity
@@ -41,6 +44,7 @@ public class User extends HistoryEntity implements UserDetails {
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(name = "pasword", nullable = false)
     private String password;
 
@@ -50,10 +54,19 @@ public class User extends HistoryEntity implements UserDetails {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @Builder.Default
+    @Column(name = "is_locked", nullable = false)
+    private boolean isLocked = false;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.REFRESH,
+    })
+    @Singular
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     Set<Role> roles;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<SimpleGrantedAuthority> listRoles = new ArrayList<>();
@@ -68,16 +81,19 @@ public class User extends HistoryEntity implements UserDetails {
         return this.password;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @JsonIgnore
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !isLocked;
     }
 
+    @JsonIgnore
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
@@ -85,6 +101,6 @@ public class User extends HistoryEntity implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return !isLocked;
     }
 }
