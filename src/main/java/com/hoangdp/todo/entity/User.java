@@ -40,7 +40,7 @@ public class User extends HistoryEntity implements UserDetails {
 
     @Id
     @GeneratedValue
-    @Schema(description = "User's id in  the database")
+    @Schema(description = "User's id in the database")
     private Long id;
 
     @Column(name = "username", nullable = false, unique = true)
