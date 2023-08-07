@@ -2,8 +2,11 @@ package com.hoangdp.todo.entity;
 
 import java.time.Instant;
 
+import com.hoangdp.todo.enums.StatusToDoEnum;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -22,7 +25,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ToDo extends HistoryEntity{
+public class ToDo extends HistoryEntity {
 
     @Id
     @GeneratedValue
@@ -31,11 +34,16 @@ public class ToDo extends HistoryEntity{
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-    
+
     @Column(name = "content", nullable = false)
     private String content;
 
     @Column(name = "deadline")
     private Instant deadline;
+
+    @Column(name = "status", nullable = false)
+    @Builder.Default
+    @Enumerated
+    private StatusToDoEnum status = StatusToDoEnum.PLANNED;
 
 }

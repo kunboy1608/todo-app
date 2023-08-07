@@ -6,11 +6,14 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.hoangdp.todo.entity.ToDo;
 import com.hoangdp.todo.entity.User;
+import com.hoangdp.todo.enums.StatusToDoEnum;
 import com.hoangdp.todo.repository.ToDoRepository;
+import com.hoangdp.todo.specification.ToDoSpecification;
 import com.hoangdp.todo.utils.TimeUtils;
 
 @Service
@@ -76,6 +79,10 @@ public class ToDoService {
         return toDoRepository.findAllByUser(userService.getCurrentUser(), pageable);
     }
 
+    public Page<ToDo> findAllByStatus(StatusToDoEnum status, Pageable pageable) {
+        return toDoRepository.findAll(Specification.where(ToDoSpecification.isStatus(status)), pageable);
+    }
+
     public ToDo findById(Long id) {
         return toDoRepository.findByIdAndUser(id, userService.getCurrentUser()).orElse(null);
     }
@@ -84,7 +91,7 @@ public class ToDoService {
         toDoRepository.deleteByIdAndUser(id, userService.getCurrentUser());
     }
 
-    public boolean existsById(Long id){
+    public boolean existsById(Long id) {
         return toDoRepository.existsById(id);
     }
 }
