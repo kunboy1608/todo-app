@@ -16,6 +16,8 @@ import com.hoangdp.todo.repository.ToDoRepository;
 import com.hoangdp.todo.specification.ToDoSpecification;
 import com.hoangdp.todo.utils.TimeUtils;
 
+import jakarta.transaction.Transactional;
+
 @Service
 public class ToDoService {
     @Autowired
@@ -87,6 +89,7 @@ public class ToDoService {
         return toDoRepository.findByIdAndUser(id, userService.getCurrentUser()).orElse(null);
     }
 
+    @Transactional
     public void deleteById(Long id) {
         toDoRepository.deleteByIdAndUser(id, userService.getCurrentUser());
     }
