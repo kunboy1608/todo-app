@@ -10,6 +10,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,6 +40,7 @@ public class User extends HistoryEntity implements UserDetails {
 
     @Id
     @GeneratedValue
+    @Schema(description = "User's id in  the database")
     private Long id;
 
     @Column(name = "username", nullable = false, unique = true)

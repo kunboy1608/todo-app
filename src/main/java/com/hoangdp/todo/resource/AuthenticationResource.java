@@ -22,12 +22,13 @@ public class AuthenticationResource {
     private AuthenticationService service;
 
     @PostMapping("signin")
-    public ResponseEntity<JwtAuthenticationResponse> signIn(@Valid @RequestBody SignInRequest request){
+    public ResponseEntity<JwtAuthenticationResponse> signIn(@Valid @RequestBody SignInRequest request) {
         return ResponseEntity.ok(service.signIn(request));
     }
 
     @PostMapping("signup")
-    public ResponseEntity<JwtAuthenticationResponse> signUp(@Valid @RequestBody SignUpRequest request){
+    public ResponseEntity<JwtAuthenticationResponse> signUp(@Valid @RequestBody SignUpRequest request) {
         return ResponseEntity.ok(service.signUp(request));
     }
+
 }
