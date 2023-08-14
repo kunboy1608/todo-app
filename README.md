@@ -31,10 +31,10 @@ A To Do application is a simple but useful tool that helps users manage their ta
 
 ### Built With
 
-* Srping 6
+* Spring 6
 * Spring Boot 3
 * JWT
-* Open API 3
+* OpenAPI 3
 * MySql
 * Docker
 * Java 17
