@@ -44,7 +44,7 @@ A To Do application is a simple but useful tool that helps users manage their ta
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## Screenshoot
+## Screenshots
 
 <img src="images/open-api-3-user.png" alt="open-api-3-user">
 
